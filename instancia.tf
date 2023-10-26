@@ -27,3 +27,14 @@ resource "aws_instance" "dev5"{
     }
     vpc_security_group_ids = ["${aws_security_group.acesso_ssh.id}"]    
 }
+resource "aws_instance" "dev6"{
+    provider = aws.us-east-2
+    ami = "ami-0e83be366243f524a"
+    instance_type = "t2.micro"
+    key_name = "terraform-estudo"
+    tags = {
+        name = "SRV-Dev05"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso_ssh-us-east-2.id}"]    
+    depends_on = [aws_dynamodb_table.dynamodb-homologacao]
+}
